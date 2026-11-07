@@ -45,6 +45,7 @@ export function PracticeSession({ config, onExit }: Props) {
   const [voiceOk, setVoiceOk] = useState(false);
   const recognitionRef = useRef<ReturnType<typeof createRecognizer>>(null);
   const finalAnswerRef = useRef("");
+  const listeningRef = useRef(false);
 
   useEffect(() => {
     setVoiceOk(speechSupported());
@@ -53,6 +54,7 @@ export function PracticeSession({ config, onExit }: Props) {
   useEffect(() => {
     void loadQuestion(1, "easy");
     return () => {
+      listeningRef.current = false;
       recognitionRef.current?.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,6 +98,7 @@ export function PracticeSession({ config, onExit }: Props) {
     finalAnswerRef.current = "";
     setAnswer("");
     setPartial("");
+    listeningRef.current = true;
 
     const recognition = createRecognizer(
       config.language,
@@ -106,12 +109,15 @@ export function PracticeSession({ config, onExit }: Props) {
         setPartial(text);
       },
       (message) => {
+        listeningRef.current = false;
         setError(`Mic error: ${message}`);
         setPhase("ready");
       },
+      { shouldRestart: () => listeningRef.current },
     );
 
     if (!recognition) {
+      listeningRef.current = false;
       setError("Voice input needs Chrome or Edge on HTTPS (or localhost).");
       return;
     }
@@ -122,6 +128,7 @@ export function PracticeSession({ config, onExit }: Props) {
   }
 
   function stopListening() {
+    listeningRef.current = false;
     recognitionRef.current?.stop();
     setPhase("ready");
     if (finalAnswerRef.current) {
@@ -137,6 +144,7 @@ export function PracticeSession({ config, onExit }: Props) {
       return;
     }
 
+    listeningRef.current = false;
     recognitionRef.current?.stop();
     setPhase("grading");
     setError("");
