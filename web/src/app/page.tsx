@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Suspense } from "react";
+import { HeroCta, HeroCtaFallback } from "@/components/HeroCta";
 
 export default function HomePage() {
   return (
@@ -13,11 +14,9 @@ export default function HomePage() {
             Answer out loud. Reward-based Q-learning raises or eases difficulty
             as you go.
           </p>
-          <div className="hero-cta">
-            <Link href="/practice" className="btn btn-primary">
-              Start practicing
-            </Link>
-          </div>
+          <Suspense fallback={<HeroCtaFallback />}>
+            <HeroCta />
+          </Suspense>
         </div>
       </section>
 

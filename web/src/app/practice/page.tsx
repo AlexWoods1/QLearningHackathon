@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { PracticeSession } from "@/components/PracticeSession";
 import { SetupForm } from "@/components/SetupForm";
+import { LogoutButton } from "@/components/LogoutButton";
 import type { SessionConfig } from "@/lib/types";
 
 export default function PracticePage() {
@@ -20,9 +21,12 @@ export default function PracticePage() {
   return (
     <main className="practice-page setup-page">
       <div className="setup-wrap">
-        <Link href="/" className="text-link">
-          ← Spoken
-        </Link>
+        <div className="auth-bar">
+          <Link href="/" className="text-link">
+            ← Spoken
+          </Link>
+          <LogoutButton />
+        </div>
         <p className="eyebrow">Reward-based session</p>
         <h1>Set your practice</h1>
         <p className="lede">
