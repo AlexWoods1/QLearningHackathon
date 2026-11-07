@@ -19,7 +19,7 @@ Voice answers use the browser Speech Recognition API (Chrome / Edge). Typing wor
 ## Deploy on Vercel
 
 1. Import the repo (or this `web` folder).
-2. Set **Root Directory** to `HandCraftedCode/web` if the repo root is `No_Ai` / `HandCraftedCode`.
+2. Set **Root Directory** to `web`.
 3. Add env var `GEMINI_API_KEY` in the Vercel project settings.
 4. Deploy.
 

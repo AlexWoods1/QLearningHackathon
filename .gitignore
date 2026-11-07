@@ -166,7 +166,7 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs/Zensical documentation (not used; keep HandCraftedCode/site)
+# mkdocs/Zensical documentation (not used; keep site/)
 # /site
 
 # mypy

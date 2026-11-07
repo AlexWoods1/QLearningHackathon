@@ -1,4 +1,4 @@
-# HandCraftedCode
+# QLearningHackathon
 
 No AI was used in the development of this project.
 
@@ -24,4 +24,4 @@ npm install
 npm run dev
 ```
 
-Deploy notes: see [`web/README.md`](web/README.md). Set Vercel root to `HandCraftedCode/web` and add `GEMINI_API_KEY`.
+Deploy notes: see [`web/README.md`](web/README.md). Set Vercel root to `web` and add `GEMINI_API_KEY`.
