@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -166,8 +166,8 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs/Zensical documentation
-/site
+# mkdocs/Zensical documentation (not used; keep HandCraftedCode/site)
+# /site
 
 # mypy
 .mypy_cache/
@@ -218,3 +218,21 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local binaries / media (too large for GitHub)
+ffmpeg.zip
+ffmpeg-*-essentials_build/
+audio/
+*.mp3
+*.wav
+*.m4a
+*.flac
+
+# Secrets / local env
+.env.local
+web/.env.local
+
+# Next.js / node
+web/node_modules/
+web/.next/
+web/.vercel/
