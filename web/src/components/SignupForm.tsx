@@ -2,11 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export function SignupForm() {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,17 +35,16 @@ export function SignupForm() {
       email,
       password,
       redirect: false,
+      callbackUrl: "/practice",
     });
 
-    setPending(false);
-
-    if (result?.error) {
+    if (!result || result.error || result.ok === false) {
+      setPending(false);
       setError("Account created, but sign-in failed. Try logging in.");
       return;
     }
 
-    router.push("/practice");
-    router.refresh();
+    window.location.assign(result.url || "/practice");
   }
 
   return (

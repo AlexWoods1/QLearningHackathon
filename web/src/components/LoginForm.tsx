@@ -2,11 +2,10 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/practice";
 
@@ -20,21 +19,26 @@ export function LoginForm() {
     setError(null);
     setPending(true);
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl,
+      });
 
-    setPending(false);
+      if (!result || result.error || result.ok === false) {
+        setError("Invalid email or password");
+        setPending(false);
+        return;
+      }
 
-    if (result?.error) {
-      setError("Invalid email or password");
-      return;
+      // Full navigation so the session cookie is sent on the next request.
+      window.location.assign(result.url || callbackUrl);
+    } catch {
+      setError("Sign-in failed. Check your connection and try again.");
+      setPending(false);
     }
-
-    router.push(callbackUrl);
-    router.refresh();
   }
 
   return (
